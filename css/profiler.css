@@ -1,0 +1,145 @@
+@CHARSET "UTF-8";
+
+/** Layout **/
+html {
+	margin:0 0;
+	padding:0;
+}
+
+body {
+	color: #333;
+	font-family: Verdana, Lucida, sans-serif;
+	background: #444;
+	font-size: 14px;
+}
+
+#profile-request-data {
+	width: 400px;
+}
+
+#profile-query-data {
+	width: 400px;
+}
+
+#showonclickarea {
+	width: 1000px;
+	position:fixed;
+	left:415px;
+	height:95%;
+	overflow:scroll;
+}
+
+table {
+	background: #fff;
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin:10px 0pt 15px;
+}
+
+th {
+    font-weight: bold; 
+    border-right: 1px solid #dad9c7; 
+    margin-left: -1px; 
+    text-align:right;
+    background-color: #e6EEEE;
+}
+
+th, td {
+	border:1px solid #676767;
+	vertical-align:top;
+	padding: 5px;
+}
+
+td.center {
+	text-align:center;	
+}
+
+td.left {
+	text-align:left;	
+}
+
+td.right {
+	text-align:right;
+}
+
+table.tablesorter tbody tr th.header {      
+    cursor: pointer; 
+    font-weight: bold; 
+    padding-left: 5px;
+    border-right: 1px solid #dad9c7; 
+    margin-left: -1px; 
+} 
+
+div.showonclick {
+	width:200px;
+	height:1em;
+	visibility:hidden;
+	overflow:hidden;
+}
+
+#showonclickarea {
+	border:solid black 1px;
+	background: #ddd;
+	padding:4px;
+}
+
+#showonclickarea table {
+	font: 10px monospace;
+}
+
+caption {
+	background-color: #FFFFFF;
+	border: 1px solid #FFF;
+	font-weight: bold;
+}
+
+/* tables */
+table.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+}
+
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #676767;
+	padding: 2px;
+	padding-right:15px;
+	text-align:center;
+}
+
+table.tablesorter thead tr .header {
+	background-image: url(/profiler/images/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 3px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.tablesorter thead tr th.headerSortUp {
+	background-image: url(/profiler/images/asc.gif);
+}
+table.tablesorter thead tr th.headerSortDown {
+	background-image: url(/profiler/images/desc.gif);
+}
+table.tablesorter thead tr th.headerSortDown, table.tablesorter thead tr th.headerSortUp {
+	background-color: #8dbdd8;
+}
+
+table.tablesorter td.viewing {
+	background-color: #ddd;
+}
+
+.clear{
+	clear:both;
+}
+
+
