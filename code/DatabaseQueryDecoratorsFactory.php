@@ -19,6 +19,14 @@ class DatabaseQueryDecoratorsFactory {
 			return $handlers;
 		}
 
+		if( SapphireTest::is_running_test() ) {
+			return $handlers;
+		}
+
+		if( Director::is_cli() ) {
+			return $handlers;
+		}
+
 		if( stristr( $_REQUEST[ 'url' ], 'ProfilerLogViewer' ) ) {
 			return $handlers;
 		}
@@ -27,12 +35,12 @@ class DatabaseQueryDecoratorsFactory {
 		} else {
 			$handlers = $this->enableDecorators( $handlers, 'log' );
 		}
-		
+
 		return $handlers;
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	protected function enableDecorators( $handlers, $string ) {
 		$decoratorIdentifiers = explode( ',', $string );
