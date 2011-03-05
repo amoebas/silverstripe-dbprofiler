@@ -32,6 +32,10 @@ class DatabaseQueryDecoratorsFactory {
 			return $handlers;
 		}
 
+		if( stristr( $_REQUEST[ 'url' ], 'favicon' ) ) {
+			return $handlers;
+		}
+
 		if( isset( $_GET[ 'dbprofiler' ] ) && $_GET['dbprofiler'] == 'cache_duplicates' )  {
 			$handlers = $this->enableDecorators( $handlers, 'cache,log' );
 		} else {
