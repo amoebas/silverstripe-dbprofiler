@@ -22,6 +22,13 @@ class DatabaseQueryLogDecorator implements DatabaseQueryExecutable {
 	);
 
 	/**
+	 * Include the css for the query log bar
+	 */
+	public function  __construct() {
+		Requirements::css( 'dbprofiler/css/querylog.css' );
+	}
+
+	/**
 	 * Log the query and pass on execution of it.
 	 *
 	 * @param array $handlers
@@ -129,51 +136,37 @@ class DatabaseQueryLogDecorator implements DatabaseQueryExecutable {
 	 * @return void
 	 */
 	public function __destruct() {
-		if( isset( self::$queries[ 'Queries' ] ) ) {
-			self::$queries[ 'Timestamp' ] = date( 'Y-m-d H:i:s' );
-			self::$queries[ 'MemoryUsage' ] = number_format( (float) memory_get_peak_usage( true ) / ( 1024 * 1024 ), 2 );
-			self::$queries[ 'TotalSize' ] = number_format( self::$queries[ 'TotalSize' ] / 1024.00, 2);
-			file_put_contents( getTempFolder( BASE_PATH . '-query-stats' ) . '/querystats.php', '<?php $logData = ' . var_export( self::$queries, true ) . '; ?>' );
-			echo '
-				<style>
-				#QueryLog_Offset{
-					height:32px;
-				}
-				#QueryLog_Info {
-					height:32px;
-					width: 100%;
-					position: fixed;
-					bottom: 0px;
-					z-index: 2718281828459045;
-					left: 0px;
-					font: 12px/1.4em Lucida Grande, Lucida Sans Unicode, sans-serif;
-					color: white;
-					display: block;
-					line-height:30px;
-					text-align:center;
-					border-top:1px solid #777;
-					background: #000 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAyCAMAAABSxbpPAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACFQTFRFFhYWIyMjGhoaHBwcJSUlExMTFBQUHx8fISEhGBgYJiYmWIZXxwAAAC5JREFUeNrsxskNACAMwLBAucr+A/OLWAEJv0wXQ1xSVBFiiiWKaGLr96EeAQYA2KMRY8RL/qEAAAAASUVORK5CYII=);
-				}
-				#QueryLog_Info a {
-					color: #09f;
-				}
-				</style>';
-			echo('<div id="QueryLog_Offset"><div id="QueryLog_Info">');
-			echo ' PHP peak memory: '.self::$queries[ 'MemoryUsage' ].'MB ';
-			echo ' | Querysize: '.self::$queries[ 'TotalSize' ].'KB ';
-			echo '| Queries: ';
-			if( $this->haveCachedQueries() ) {
-				echo count(self::$queries[ 'Queries' ]);
-				echo ' <a href="'.$this->getCacheLink().'">Uncache queries</a>';
-			} else {
-				echo self::$queries[ 'TotalQueries' ].' ('.count(self::$queries[ 'Queries' ]);
-				echo ' <a href="'.$this->getCacheLink().'">unique</a>) ';
-			}
-			
-			echo ' | Time in db: '.self::$queries[ 'TotalTime'].'ms ';
-			echo ' | <a href="/ProfilerLogViewerController" target="queryprofiler">Read more</a>';
-			echo('</div></div>');
+		if( !isset( self::$queries[ 'Queries' ] ) ) {
+			return;
 		}
+		
+		self::$queries[ 'Timestamp' ] = date( 'Y-m-d H:i:s' );
+		self::$queries[ 'MemoryUsage' ] = number_format( (float) memory_get_peak_usage( true ) / ( 1024 * 1024 ), 2 );
+		self::$queries[ 'TotalSize' ] = number_format( self::$queries[ 'TotalSize' ] / 1024.00, 2);
+		file_put_contents( getTempFolder( BASE_PATH . '-query-stats' ) . '/querystats.php', '<?php $logData = ' . var_export( self::$queries, true ) . '; ?>' );
+		$this->printProfilingInformation();
+	}
+
+	/**
+	 * Outputs the information of the profiling
+	 */
+	protected function printProfilingInformation() {
+		echo '<div id="QueryLog_Offset"><div id="QueryLog_Info">';
+		echo ' PHP peak memory: '.self::$queries[ 'MemoryUsage' ].'MB ';
+		echo ' | Querysize: '.self::$queries[ 'TotalSize' ].'KB ';
+		echo '| Queries: ';
+		
+		if( $this->haveCachedQueries() ) {
+			echo count(self::$queries[ 'Queries' ]);
+			echo ' <a href="'.$this->getCacheLink().'">Uncache queries</a>';
+		} else {
+			echo self::$queries[ 'TotalQueries' ].' ('.count(self::$queries[ 'Queries' ]);
+			echo ' <a href="'.$this->getCacheLink().'">unique</a>) ';
+		}
+
+		echo ' | Time in db: '.self::$queries[ 'TotalTime'].'ms ';
+		echo ' | <a href="/ProfilerLogViewerController" target="queryprofiler">Read more</a>';
+		echo('</div></div>');
 	}
 
 	/**

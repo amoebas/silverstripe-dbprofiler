@@ -1,0 +1,21 @@
+#QueryLog_Offset{
+	height:32px;
+}
+#QueryLog_Info {
+	height:32px;
+	width: 100%;
+	position: fixed;
+	bottom: 0px;
+	z-index: 2718281828459045;
+	left: 0px;
+	font: 12px/1.4em Lucida Grande, Lucida Sans Unicode, sans-serif;
+	color: white;
+	display: block;
+	line-height:30px;
+	text-align:center;
+	border-top:1px solid #777;
+	background: #000 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAyCAMAAABSxbpPAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACFQTFRFFhYWIyMjGhoaHBwcJSUlExMTFBQUHx8fISEhGBgYJiYmWIZXxwAAAC5JREFUeNrsxskNACAMwLBAucr+A/OLWAEJv0wXQ1xSVBFiiiWKaGLr96EeAQYA2KMRY8RL/qEAAAAASUVORK5CYII=);
+}
+#QueryLog_Info a {
+	color: #09f;
+}
