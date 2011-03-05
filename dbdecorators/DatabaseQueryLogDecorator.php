@@ -1,7 +1,10 @@
 <?php
 /**
- * Decorator that logs the queries.
+ * Decorator that logs the queries and statistics in a logfile in
  *
+ * getTempFolder( BASE_PATH . '-query-stats' ) . '/querystats.php'
+ *
+ * @package dbprofiler
  */
 class DatabaseQueryLogDecorator implements DatabaseQueryExecutable {
 
@@ -27,25 +30,28 @@ class DatabaseQueryLogDecorator implements DatabaseQueryExecutable {
 	 * @return MySQLQuery
 	 */
 	public function executeQuery( $handlers, $sql, $errorLevel = E_USER_ERROR ) {
+		$this->logQueryData( $sql );
 		$key = md5( $sql );
-		$sql = str_replace( 'SELECT', 'SELECT /*SQL_NO_CACHE*/', $sql );
-		$this->logQueryData( $key, $sql );
 		$this->logTotals( $key );
 		$this->logBacktrace( $key );
 		return $this->runQuery( $handlers, $key, $sql, $errorLevel );
 	}
 
 	/**
+	 * Log data about this sql query 
 	 *
-	 * @param string $key
 	 * @param string $sql
 	 * @return void
 	 */
-	protected function logQueryData( $key, $sql ) {
+	protected function logQueryData( $sql ) {
+		$key = md5( $sql );
+
+		// Query already logged
 		if( isset( self::$queries[ 'Queries' ][ $key ] ) ) {
 			self::$queries[ 'Queries' ][ $key ][ 'Requests' ]++;
 			return;
 		}
+		
 		self::$queries[ 'Queries' ][ $key ][ 'Requests' ] = 1;
 		self::$queries[ 'Queries' ][ $key ][ 'ID' ] = $key;
 		self::$queries[ 'Queries' ][ $key ][ 'Query' ] = str_replace( '"', '`', $sql );

@@ -2,6 +2,7 @@
 /**
  * Interface for Query decorators
  *
+ * @package dbprofiler
  */
 interface DatabaseQueryExecutable {
 
@@ -14,5 +15,4 @@ interface DatabaseQueryExecutable {
 	 * @return MySQLQuery
 	 */
 	function executeQuery( $handlers, $sql, $errorLevel = E_USER_ERROR );
-
 }

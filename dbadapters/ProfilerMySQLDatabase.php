@@ -2,6 +2,7 @@
 /**
  * Profiling class for the MySQLDatabase.
  *
+ * @package dbprofiler
  */
 class ProfilerMySQLDatabase extends MySQLDatabase implements DatabaseQueryExecutable {
 

@@ -1,7 +1,9 @@
 <?php
 /**
- * Decorator that caches the queries.
+ * Decorator that caches all queries that are exactly the same.. or have the same
+ * md5 sum.
  *
+ * @package dbprofiler
  */
 class DatabaseQueryCacheDecorator implements DatabaseQueryExecutable {
 
@@ -14,15 +16,15 @@ class DatabaseQueryCacheDecorator implements DatabaseQueryExecutable {
 	 * @return MySQLQuery
 	 */
 	public function executeQuery( $handlers, $sql, $errorLevel = E_USER_ERROR ) {
-		static $result;
-		$key = md5( $sql );
-		if( !isset( $result[ $key ] ) ) {
-			if( !empty( $handlers ) ) {
-				$handler = array_pop( $handlers );
-				$result[ $key ] = $handler->executeQuery( $handlers, $sql, $errorLevel );
-			}
-		}
-		return $result[ $key ];
-	}
+		static $_cached_sql_results;
 
+		$sqlHashSum = md5( $sql );
+
+		if( isset( $_cached_sql_results[ $sqlHashSum ] ) ) {
+			return $_cached_sql_results[ $sqlHashSum ];
+		}
+		$handler = array_pop( $handlers );
+		$_cached_sql_results[ $sqlHashSum ] = $handler->executeQuery( $handlers, $sql, $errorLevel );
+		return $_cached_sql_results[ $sqlHashSum ];
+	}
 }

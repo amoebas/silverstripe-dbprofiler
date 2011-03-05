@@ -2,6 +2,7 @@
 /**
  * Viewer for Profiler logs
  *
+ * @package dbprofiler
  */
 class ProfilerLogViewerController extends ContentController {
 
