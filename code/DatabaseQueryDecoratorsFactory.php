@@ -2,6 +2,7 @@
 /**
  * Factory for Query decorators.
  *
+ * @package dbprofiler
  */
 class DatabaseQueryDecoratorsFactory {
 
@@ -27,9 +28,10 @@ class DatabaseQueryDecoratorsFactory {
 			return $handlers;
 		}
 
-		if( stristr( $_REQUEST[ 'url' ], 'ProfilerLogViewer' ) ) {
+		if( stristr( $_REQUEST[ 'url' ], 'ProfilerLogViewerController' ) ) {
 			return $handlers;
 		}
+
 		if( isset( $_GET[ 'dbprofiler' ] ) && $_GET['dbprofiler'] == 'cache_duplicates' )  {
 			$handlers = $this->enableDecorators( $handlers, 'cache,log' );
 		} else {
@@ -40,10 +42,14 @@ class DatabaseQueryDecoratorsFactory {
 	}
 
 	/**
+	 * Enables the
 	 *
+	 * @param SS_Database $handlers
+	 * @param string $dbdecorators
+	 * @return array - an array of handlers, that is instanced dbdecorators
 	 */
-	protected function enableDecorators( $handlers, $string ) {
-		$decoratorIdentifiers = explode( ',', $string );
+	protected function enableDecorators( SS_Database $handlers, $dbdecorators ) {
+		$decoratorIdentifiers = explode( ',', $dbdecorators );
 		foreach( array_reverse( $decoratorIdentifiers ) as $identifier ) {
 			$className = 'DatabaseQuery' . ucfirst( trim( $identifier ) ) . 'Decorator';
 			if( ClassInfo::classImplements( $className, 'DatabaseQueryExecutable' ) ) {
