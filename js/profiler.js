@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
 	});
 
 	jQuery('a.doit').click(function() {
-		jQuery('#showonclickarea').html( '<img src="/cms/images/network-save.gif" alt="loading"/>' );
+		jQuery('#showonclickarea').html( 'Loading...' );
 		url = jQuery(this).attr('href');
 		jQuery.get( url,
 			function(data) {

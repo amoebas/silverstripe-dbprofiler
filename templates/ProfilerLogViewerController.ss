@@ -46,11 +46,11 @@
 					<td class="right">$Time</td>
 					<td class="right">$QuerySize</td>
 					<td class="center">
-						<a class="doit" href="/ProfilerLogViewerController/Query/$ID">View</a>
-						<a class="doit" href="/ProfilerLogViewerController/Describe/$ID">Explain</a>
+						<a class="doit" href="ProfilerLogViewerController/Query/$ID">View</a>
+						<a class="doit" href="ProfilerLogViewerController/Describe/$ID">Explain</a>
 					</td>
 					<td class="center">
-						<a class="doit" href="/ProfilerLogViewerController/Backtrace/$ID">Show</a>
+						<a class="doit" href="ProfilerLogViewerController/Backtrace/$ID">Show</a>
 					</td>
 				</tr>
 				<% end_control %>

@@ -165,12 +165,13 @@ class DatabaseQueryLogDecorator implements DatabaseQueryExecutable {
 		}
 
 		echo ' | Time in db: '.self::$queries[ 'TotalTime'].'ms ';
-		echo ' | <a href="/ProfilerLogViewerController" target="queryprofiler">Read more</a>';
+		echo ' | <a href="'.Director::absoluteURL( 'ProfilerLogViewerController', true ).'" target="queryprofiler">Read more</a>';
 		echo('</div></div>');
 	}
 
 	/**
-	 * 
+	 *
+	 * @return string 
 	 */
 	protected function getCacheLink() {
 		$link = '';
@@ -188,7 +189,7 @@ class DatabaseQueryLogDecorator implements DatabaseQueryExecutable {
 			}
 			$link.='&'.$param.'='.$value;
 		}
-		return '?'.$link;
+		return $_GET['url'].'?'.$link;
 	}
 
 	/**

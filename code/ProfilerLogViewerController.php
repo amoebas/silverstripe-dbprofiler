@@ -47,6 +47,14 @@ class ProfilerLogViewerController extends ContentController {
 
 	/**
 	 *
+	 * @return string
+	 */
+	public function Link() {
+		return Director::absoluteURL( 'ProfilerLogViewerController', true );
+	}
+
+	/**
+	 *
 	 * @param SS_HTTPRequest $request
 	 * @return void
 	 */
@@ -65,7 +73,7 @@ class ProfilerLogViewerController extends ContentController {
 		$dowantKey = $request->param( 'ID' );
 		$sql = $this->rawdata['Queries'][ $dowantKey ]['Query'];
 		if( !preg_match( "|^SELECT|", $sql ) ) {
-			echo '<strong>Describe is not possible on this query</strong><br />';
+			echo '<strong>Explain is not possible on this query</strong><br />';
 			echo '<code>'.$sql.'</code>';
 			return;
 		}
