@@ -144,6 +144,10 @@ class DatabaseQueryLogDecorator implements DatabaseQueryExecutable {
 		self::$queries[ 'MemoryUsage' ] = number_format( (float) memory_get_peak_usage( true ) / ( 1024 * 1024 ), 2 );
 		self::$queries[ 'TotalSize' ] = number_format( self::$queries[ 'TotalSize' ] / 1024.00, 2);
 		file_put_contents( getTempFolder( BASE_PATH . '-query-stats' ) . '/querystats.php', '<?php $logData = ' . var_export( self::$queries, true ) . '; ?>' );
+
+		if( Director::is_ajax() ) {
+			return;
+		}
 		$this->printProfilingInformation();
 	}
 
