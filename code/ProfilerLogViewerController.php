@@ -23,7 +23,10 @@ class ProfilerLogViewerController extends ContentController {
 		$this->rawdata = $logData;
 		foreach( $logData as $key => $data ) {
 			if( is_array( $data ) ) {
-				$logData[ $key ] = new DataObjectSet( $logData[ $key ] );
+				$logData[ $key ] = new ArrayList();
+				foreach ($data as $i => $item) {
+					$logData[ $key ][$i] = new ArrayData($item);
+				}
 			}
 		}
 
@@ -49,7 +52,7 @@ class ProfilerLogViewerController extends ContentController {
 	 *
 	 * @return string
 	 */
-	public function Link() {
+	public function Link($action=null) {
 		return Director::absoluteURL( 'ProfilerLogViewerController', true );
 	}
 

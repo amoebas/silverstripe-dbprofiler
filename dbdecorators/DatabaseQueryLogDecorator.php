@@ -92,7 +92,6 @@ class DatabaseQueryLogDecorator implements DatabaseQueryExecutable {
 				$backtraceKey .= $backtrace[ $stackLevel ][ 'class' ] . '_' . $backtrace[ $stackLevel ][ 'function' ] . '____';
 			}
 			unset( $backtrace[ $stackLevel ][ 'object' ] );
-			unset( $backtrace[ $stackLevel ][ 'args' ] );
 		}
 
 		$backtraceKey = md5( $backtraceKey );
