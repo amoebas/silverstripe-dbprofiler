@@ -88,7 +88,7 @@ class DatabaseQueryLogDecorator implements DatabaseQueryExecutable {
 		foreach( $backtrace as $stackLevel => $val ) {
 			if( isset( $backtrace[ $stackLevel ][ 'file' ] ) ) {
 				$backtraceKey .= $backtrace[ $stackLevel ][ 'file' ] . '_' . $backtrace[ $stackLevel ][ 'line' ] . '____';
-			} else {
+			} else if( isset( $backtrace[ $stackLevel ][ 'class' ] ) ) { //closures have no class!
 				$backtraceKey .= $backtrace[ $stackLevel ][ 'class' ] . '_' . $backtrace[ $stackLevel ][ 'function' ] . '____';
 			}
 			unset( $backtrace[ $stackLevel ][ 'object' ] );
