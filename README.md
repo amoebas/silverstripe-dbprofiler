@@ -15,7 +15,12 @@ Extract / clone it in the root folder of your SilverStripe repository.
 
 Change your database class in the _ss_environment.php to
 
-`define( 'SS_DATABASE_CLASS', 'ProfilerMySQLDatabase' );`
+    if(strstr($_SERVER['REQUEST_URI'], '/dev/tests/') === false) {
+    	define( 'SS_DATABASE_CLASS', 'ProfilerMySQLDatabase' );
+    }
+ 
+This makes sure that dbprofiler is disabled for tests, since they do not
+ run correctly if it is enabled.
  
  Flush your site by appending the ?flush=1 to the url or use sake.
  
